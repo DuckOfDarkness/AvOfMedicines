@@ -1,0 +1,222 @@
+{
+	"main": {
+		"name": "WYSZUKIWARKA LEKÓW",
+		"title": "Wyszukiwarka leków",
+		"description": "Wyszukiwarka leków dostępnych w hurtowniach farmaceutycznych."
+	},
+	"top_menu": {
+		"main-page": "Strona główna",
+		"wholesalers": "Hurtownie",
+		"medicines": "Leki",
+		"whole-med": "Dostępności leków",
+		"producers": "Producenci",
+		"login": "Zaloguj się",
+		"user_account": "Konto użytkownika"
+	},
+	"list-actions": {
+		"title": "Akcje",
+		"details": "Szczegóły",
+		"edit": "Edytuj",
+		"delete": "Usuń"
+	},
+	"wholesaler": {
+		"list": {
+			"title": "Hurtownie",
+			"name": "Nazwa hurtowni",
+			"nip": "Numer NIP",
+			"add": "Dodaj nową hurtownię",
+			"noData": "Brak informacji w bazie danych na temat dostępnych hurtowni."
+		},
+		"form": {
+			"details": {
+				"title": "Szczegóły hurtowni",
+				"secondTitle": "Szczegóły dostępności leków",
+				"drugName": "Nazwa leku",
+				"amount": "Dostępna ilość",
+				"date_of_purchase": "Data zakupu",
+				"addTitle": "Nowa hurtownia",
+				"btnLabel": "Dodaj",
+				"deleteTitle": "Usuwanie hurtowni"
+			},
+			"edit": {
+				"title": "Edycja hurtowni"
+			}
+		}
+	},
+	"medicines": {
+		"list": {
+			"title": "Leki",
+			"name": "Nazwa",
+			"parallel_import": "Importer równoległy",
+			"expiration_date": "Data ważności",
+			"producer": "Producent",
+			"add": "Dodaj nowy lek",
+			"noData": "Brak informacji w bazie danych na temat dostępnych leków."
+		},
+		"form": {
+			"details": {
+				"title": "Szczegóły leku",
+				"secondTitle": "Szczegóły dostępności leków w hurtowniach",
+				"wholesalerName": "Nazwa hurtowni",
+				"amount": "Ilość",
+				"date_of_purchase": "Data zakupu",
+				"addTitle": "Nowy lek",
+				"btnLabel": "Dodaj"
+			},
+			"edit": {
+				"title": "Edycja leku"
+			}
+		}
+	},
+	"whole-med": {
+		"list": {
+			"title": "Dostępność leków",
+			"name": "Nazwa leku",
+			"wholesaler": "Hurtownia",
+			"amount": "Ilość",
+			"date_of_purchase": "Data zakupu",
+			"add": "Dodaj nową dostępność",
+			"addTitle": "Nowa dostępność leku",
+			"btnLabel": "Dodaj",
+			"noData": "Brak informacji w bazie danych na temat dostępności leku w hurtowniach."
+		},
+		"form": {
+			"details": {
+				"title": "Szczegóły dostępności leków"
+			},
+			"edit": {
+				"title": "Edycja dostępności leku"
+			}
+		}
+	},
+	"producer": {
+		"list": {
+			"title": "Producenci",
+			"name": "Nazwa",
+			"country": "Kraj pochodzenia",
+			"add": "Dodaj nowego producenta",
+			"addTitle": "Nowy producent",
+			"btnLabel": "Dodaj",
+			"noData": "Brak informacji w bazie danych na temat dostępnych producentów."
+		},
+		"form": {
+			"details": {
+				"title": "Szczegóły producenta",
+				"secondTitle": "Lista leków",
+				"name": "Nazwa leku"
+			},
+			"edit": {
+				"title": "Edycja producenta"
+			}
+		}
+	},
+	"account": {
+		"title": "Logowanie",
+		"usrName": "Nazwa użytkownika",
+		"oldPasswd": "Stare hasło",
+		"newPasswd": "Nowe hasło",
+		"repPasswd": "Powtórz nowe hasło",
+		"confirm": "Zatwierdź",
+		"cancel": "Anuluj",
+		"password": "Hasło",
+		"logIn": "Zaloguj się",
+		"logAs": "Jesteś zalogowany jako",
+		"producer": "producent",
+		"wholesaler": "Hurtownia",
+		"edit": "Zmień dane",
+		"edit_title": "Zmiana nazwy użytkownika",
+		"change_password": "Zmień hasło",
+		"change_password_title": "Zmiana hasła",
+		"wrong_password": "Wprowadzone stare hasło jest niepoprawne",
+		"same_password": "Wprowadzone haslo jest identyczne z starym hasłem",
+		"logout": "Wyloguj się",
+		"users": "Użytkownicy",
+		"role": "Rola",
+		"id_usr": "Identyfikator użytkownika w ramach jego roli",
+		"lanConfirm": "Zmień język",
+		"choose": "Wybierz z listy",
+		"lang": "Wybierz język",
+		"logout_message": "Nastąpiło poprawne wylogowanie",
+		"user_update_message": "Dane użytkownika zostały zmienione poprawnie. Prosze zalogować się ponownie używając nowych danych logowania.",
+		"add_admin": "Dodaj nowego administratora",
+		"add_admin_title": "Dodawanie administratora",
+		"add_admin_successful": "Dodawanie administratora przebiegło pomyślnie"
+	},
+	"various": {
+		"details": {
+			"edit": "Edytuj",
+			"return": "Powrót"
+		},
+		"edit": {
+			"confirm": "Zapisz zmiany",
+			"cancel": "Anuluj",
+			"confirm_information": "Edycja została przeprowadzona poprawnie"
+		},
+		"delete": {
+			"wholesaler_delete": "Usuwanie hurtowni przebiegło poprawnie",
+			"medicine_delete": "Usuwanie leku przebiegło poprawnie",
+			"whole_med_delete": "Usuwanie dostępności przebiegło poprawnie",
+			"producer_delete": "Usuwanie producenta przebiegło poprawnie",
+			"user_delete": "Usuwanie użytkownika przebiegło poprawnie"
+		},
+		"update": {
+			"wholesaler_update": "Edycja hurtowni przebiegła poprawanie",
+			"medicines_update": "Edycja leku przebiegła poprawanie",
+			"whole_med_update": "Edycja dostępności leku przebiegła poprawanie",
+			"producer_update": "Edycja producenta przebiegła poprawanie",
+			"user_update": "Edycja użytkownika przebiegła poprawanie",
+			"user_delete": "various.update.user_delete"
+		},
+		"add": {
+			"wholesaler_add": "Hurtownia została dodana poprawanie",
+			"medicines_add": "Lek został dodany poprawanie",
+			"whole_med_add": "Dostępość leku została dodana poprawanie",
+			"producer_add": "Producent został dodany poprawanie",
+			"user_add": "Użytkownik został dodany poprawanie"
+		},
+		"conditions": {
+			"characters": "znaków",
+			"empty_or": "Pusty lub",
+			"choose_from_list": "Wybierz z listy",
+			"date_format": "dzień/miesiąc/rok",
+			"digit": "cyfr"
+		}
+	},
+	"errors": {
+		"loginFailed": "Nieprawidłowa nazwa użytkownika lub hasło",
+		"req_field": "Pole wymagane",
+		"expiration_date_invalid_format": "Wprowadzono błędny format daty. Data powinna być w formacie dd.MM.rrrrr (np. 02.11.2023)",
+		"errorsSummary": "Formularz zawiera blędy",
+		"name": {
+			"capital_letter": "Nazwa musi zaczynać się z dużej litery",
+			"2-90": "Nazwa musi zawierać od 2 do 90 znaków",
+			"2-70": "Nazwa musi zawierać od 2 do 70 znaków",
+			"only_numbers": "Nazwa nie może zawierać samych cyfr"
+		},
+		"medicines": {
+			"parallel_importer_2-100": "Importer równoległy może być pusty lub zawierać od 2 do 100 znaków",
+			"parallel_importer_capital_letter": "Importer równoległy musi zaczynać się z dużej litery",
+			"expiration_date_not_after_then_today": "Data ważności nie może być wcześniejsza niż aktualna"
+		},
+		"producer": {
+			"country_2-90": "Kraj musi zawierać od 2 do 90 znaków",
+			"country_invalid": "Kraj musi zaczynać się z dużej litery i nie może zawierać cyfr ani innych znaków (np. Polska, Wielka Brytania)"
+		},
+		"wholesaler": {
+			"nip_length": "NIP musi zawierać 10 cyfr",
+			"nip_format": "NIP może zawierać tylko cyfry"
+		},
+		"whole_med": {
+			"<1": "Wartość nie może być niższa niż 1",
+			">9999": "Wartość nie może być wyższa niż 9999",
+			"date_of_purchase": "Data zakupu nie może być późniejsza niż aktualna"
+		},
+		"password": {
+			"length": "Haslo musi mieć długość od 8 do 20 znaków",
+			"invalid_old_passwd": "Stare hasło jest niepoprawne"
+		}
+	},
+	"validationMessage": {
+		"fieldRequired": "validationMessage.fieldRequired"
+	}
+}

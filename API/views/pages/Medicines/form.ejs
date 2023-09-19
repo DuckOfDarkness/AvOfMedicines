@@ -1,0 +1,134 @@
+<%- include('../../fragments/header.ejs') %>
+<main>
+    <script type="application/javascript" src="../../js/validationMedicinesForm.js"></script>
+    <title><%= pageTitle %></title>
+    <h2><%= pageTitle %>
+        <hr>
+    </h2>
+
+    <form class="form" method="post" action="<%= formAction %> " novalidate> <!--onsubmit="return validateForm();"-->
+        <input type="hidden" name="_id" value="<%= medicines._id %>">
+
+        <label for="name"><%= __('medicines.list.name') %>: <span class="symbol-required">*</span></label>
+        <input type="text" name="name" id="name" placeholder="2 - 90 <%= __('various.conditions.characters') %>"
+               value="<%= medicines.name %>"
+               class="<%= validationErrors.find(e => e.path.includes('name')) ? 'error-input' : '' %>" <%= (formMode == 'showDetails' ) ? 'disabled' : '' %>/>
+        <span id="errorName" class="errors-text">
+            <% if (validationErrors.find(e => e.path.includes('name'))) { %>
+            <%= validationErrors.find(e => e.path.includes('name')).message %>
+            <% } %>
+        </span>
+        <div style="display: none">
+            <span id="errorMessage-required"><%= __('validationMessage.fieldRequired') %></span>
+        </div>
+
+        <label for="parallel_importer"><%= __('medicines.list.parallel_import') %>: </label>
+        <input type="text" name="parallel_importer" id="parallel_importer"
+               placeholder="<%= __('various.conditions.empty_or') %> 2 - 100 <%= __('various.conditions.characters') %>"
+               value="<%= medicines.parallel_importer %>"
+               class="<%= validationErrors.find(e => e.path.includes('parallel_importer')) ? 'error-input' : '' %>" <%= (formMode == 'showDetails' ) ? 'disabled' : '' %>/>
+        <span id="errorParallel_importer" class="errors-text">
+            <% if (validationErrors.find(e => e.path.includes('parallel_importer'))) { %>
+            <%= validationErrors.find(e => e.path.includes('parallel_importer')).message %>
+            <% } %>
+        </span>
+
+        <label for="expiration_date"><%= __('medicines.list.expiration_date') %>: <span class="symbol-required">*</span></label>
+        <input type="date" name="expiration_date" id="expiration_date"
+               placeholder="<%= __('various.conditions.date_format') %>"
+               value="<%= fmt.formatDate(medicines.expiration_date) %>"
+               class="<%= validationErrors.find(e => e.path.includes('expiration_date')) ? 'error-input' : '' %>" <%= (formMode == 'showDetails' ) ? 'disabled' : '' %>/>
+        <span id="errorExpiration_date" class="errors-text">
+            <% if (validationErrors.find(e => e.path.includes('expiration_date'))) { %>
+            <%= validationErrors.find(e => e.path.includes('expiration_date')).message %>
+            <% } %>
+        </span>
+
+        <label for="producer"><%= __('medicines.list.producer') %>: <span class="symbol-required">*</span></label>
+        <select name="producer_id" id="producer"
+                class="<%= validationErrors.find(e => e.path.includes('producer')) ? 'error-input' : '' %>" <%= ((formMode == 'showDetails') || (loggedUser.role != 'admin')) ? 'disabled' : '' %>
+                required>
+            <option value="0">-- <%= __('various.conditions.choose_from_list') %> --</option>
+            <% for(let i = 0 ; i < allProducer.length; i++){let producer = allProducer[i]; %>
+            <option value="<%= producer._id %>" label="<%= producer.name %>"
+                    <%= ((medicines.producer_id == producer._id.toString()) || ((formMode == 'createNew') && (loggedUser.role_id == producer._id.toString()) && (loggedUser.role == 'producer'))) ? 'selected' : '' %>></option>
+            </option>
+            <% } %>
+        </select>
+        <span id="errorProducer" class="errors-text">
+            <% if (validationErrors.find(e => e.path.includes('producer'))) { %>
+            <%= validationErrors.find(e => e.path.includes('producer')).message %>
+            <% } %>
+        </span>
+
+
+        <% if ((formMode == 'showDetails') && (loggedUser.role == 'admin') || ((formMode == 'showDetails') && ((loggedUser.role == 'producer') && (loggedUser.role_id == medicines.producer_id)))) { %>
+            <div class="form-buttons">
+                <a href="/medicines/edit/<%= medicines._id %>"
+                   class="list-actions-button-details-edit"><%= __('various.details.edit') %></a>
+            </div>
+        <% } %>
+        <% if(formMode == 'createNew') %>
+        <div class="form-buttons">
+
+            <p id="errorsSummary" class="errors-text"><%=
+                    (validationErrors.find(e => e.path.includes('name')) ? __('errors.errorsSummary') : '') ||
+                    (validationErrors.find(e => e.path.includes('parallel_importer')) ? __('errors.errorsSummary') : '') ||
+                    (validationErrors.find(e => e.path.includes('expiration_date')) ? __('errors.errorsSummary') : '') ||
+                    (validationErrors.find(e => e.path.includes('producer')) ? __('errors.errorsSummary') : '')
+                %></p>
+
+            <% if (formMode != 'showDetails') { %>
+                <input class="form-button-submit" type="submit" formaction="" value="<%= btnLabel %>"/>
+                <a class="form-button-cancel" href="/medicines"><%= __('various.edit.cancel') %></a>
+            <% } else { %>
+            <a class="form-button-cancel" href="/medicines"><%= __('various.details.return') %></a>
+            <% } %>
+
+        </div>
+    </form>
+
+    <% if(formMode == 'showDetails' || formMode == 'edit') { %>
+    <h2>
+        <%= __('wholesaler.form.details.secondTitle') %>
+        <hr>
+    </h2>
+
+        <% let counter = 0%>
+        <% for(whole_med of allWhole_med){%>
+            <% if(medicines._id == whole_med.medicines_id){ counter++;%>
+            <% } %>
+        <% }  %>
+        <%if(counter > 0){%>
+        <table class="table-list">
+        <thead>
+        <tr>
+            <th><%= __('wholesaler.list.name') %></th>
+            <th><%= __('wholesaler.form.details.amount') %></th>
+            <th><%= __('wholesaler.form.details.date_of_purchase') %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(whole_med of allWhole_med) {
+        if(medicines._id == whole_med.medicines_id) { %>
+            <tr>
+                <td>
+                    <a href="/wholesaler/details/<%= whole_med.wholesaler_id %>"><%= whole_med.wholesaler.name %></a>
+                </td>
+                <td>
+                    <%= whole_med.amount %>
+                </td>
+                <td>
+                    <%= whole_med.date_of_purchase.toISOString().split('T')[0] %>
+                </td>
+            </tr>
+        <% }
+        } %>
+        </tbody>
+    </table>
+    <% }else {%>
+    <p><%= __('whole-med.list.noData') %></p>
+    <% }  }%>
+
+</main>
+<%- include('../../fragments/footer.ejs') %>

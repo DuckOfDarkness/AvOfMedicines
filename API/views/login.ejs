@@ -1,0 +1,187 @@
+<%- include('fragments/header.ejs') %>
+<main>
+    <!--    <script type="application/javascript" src="../../js/validationUserInputs.js"></script>-->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LOGIN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <% if(!loggedUser) { %>
+        <div id="login">
+
+            <h2><%= __('account.title') %></h2>
+            <form method="post" action="/login/login" novalidate>
+                <label for="loginName"><%= __('account.usrName') %>:</label>
+                <input type="name" id="loginName" name="name">
+                <label for="loginPassword" name="password"><%= __('account.password') %>:</label>
+                <input type="password" id="loginPassword" name="password">
+
+                <input type="submit" value="<%= __('account.confirm') %>">
+                <span id="loginErrors" class="errors-text"><%= loginError ? loginError : '' %></span>
+            </form>
+        </div>
+        <% if (message != null) { %>
+            <div class="errors-text">
+                <%= message %>
+            </div>
+        <% } %>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LOGIN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <% } else { %>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~DETAILS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <% if( formMode == 'showList') { %>
+            <h2>
+                <span><%= __('account.logAs') %> <%= (loggedUser.role == 'admin') ? 'admin' : (loggedUser.role == 'producer') ? __('account.producer') : __('account.wholesaler') %></span>
+            </h2>
+
+        <% }else if(formMode == 'addAdmin'){ %>
+            <h2><p><%= __('account.add_admin_title') %></p></h2>
+        <% } else if(formMode == 'edit') { %>
+            <h2><p><%= __('account.edit_title') %></p>
+
+            </h2>
+        <% } else if(formMode == 'changePassword') { %>
+            <h2><p><%= __('account.change_password_title') %></p></h2>
+        <% } %>
+        <hr>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~DETAILS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+        <form class="form" method="post" action="<%= formAction %> " novalidate><!--onsubmit="return validateForm();"-->
+            <input type="hidden" name="_id" value="<%= loggedUser.role_id %>">
+
+            <% if(formMode != 'changePassword'){ %>
+                <label for="name"><%= __('account.usrName') %>: <span class="symbol-required">*</span></label>
+                <input type="text" name="name" id="name" placeholder="2 - 90 <%= __('various.conditions.characters') %>"
+                       value="<% let name; for (let u of users) {
+                           if (u._id === loggedUser._id) {
+                               name = u.name
+                           }
+                       } %><%= (formMode == 'addAdmin') ? '' : name %>"
+                       class="<%= validationErrors.find(e => e.path.includes('name')) ? 'error-input' : '' %>" <%= (formMode == 'edit') || (formMode == 'addAdmin') ? '' : 'disabled' %>/>
+                <span id="errorName" class="errors-text"></span>
+            <% } %>
+
+            <% if(formMode == 'changePassword' || formMode == 'addAdmin') { %>
+            <label for="password"><%= (formMode === 'addAdmin') ? __('account.password') : __('account.oldPasswd') %>:
+                <span class="symbol-required">*</span></label>
+            <input type="password" name="password" id="password"
+                   placeholder="8 - 20 <%= __('various.conditions.characters') %>"
+                   value="<%= (formMode === 'addAdmin') ? '' : '' %>"
+                   class="<%= validationErrors.find(e => e.path.includes('password')) ? 'error-input' : '' %>" <%= (formMode == 'showList') ? 'disabled' : '' %>/>
+            <span id="errorNewPasswd" class="errors-text"></span>
+            <% } %>
+
+            <% if(formMode == 'changePassword'){ %>
+            <label for="newPasswd"><%= __('account.newPasswd') %>: <span class="symbol-required">*</span></label>
+            <input type="password" name="newPasswd" id="newPasswd"
+                   placeholder=" 8 - 20 <%= __('various.conditions.characters') %>"
+                   value=""
+                   class="<%= validationErrors.find(e => e.path.includes('newPasswd')) ? 'error-input' : '' %>" <%= (formMode == 'showList') ? 'disabled' : '' %>/>
+            <span id="errorNewPasswd" class="errors-text"></span>
+
+            <% } %>
+
+            <% if( formMode == 'showList') { %>
+                <% if(loggedUser.role === 'producer'){ %>
+                    <a class="user-action-button-change-data"
+                       href="/producer/edit/<%= loggedUser.role_id %>"><%= __('account.edit') %></a>
+                <% }else if(loggedUser.role === 'wholesaler'){ %>
+                    <a class="user-action-button-change-data"
+                       href="/wholesaler/edit/<%= loggedUser.role_id %>"><%= __('account.edit') %></a>
+                <% }else if(loggedUser.role === 'admin'){ %>
+                    <a class="user-action-button-change-data"
+                       href="/login/changeData/<%= loggedUser.role_id %>"><%= __('account.edit') %></a>
+                <% } %>
+                <a class="user-action-button-change-password"
+                   href="/login/changePassword/<%= loggedUser.role_id %>"><%= __('account.change_password') %></a>
+
+
+                <a class="user-action-button-logout" href="/login/logout"><%= __('account.logout') %></a>
+            <% } %>
+            <% if( formMode == 'edit' || formMode === 'addAdmin' || formMode == 'changePassword') { %>
+                <div class="form-buttons">
+
+                    <p id="errorsSummary" class="errors-text"><%=
+                            (validationErrors.find(e => e.path.includes('name')) ? __('errors.errorsSummary') : '') ||
+                            (validationErrors.find(e => e.path.includes('oldPasswd')) ? __('errors.errorsSummary') : '') ||
+                            (validationErrors.find(e => e.path.includes('newPassword')) ? __('errors.errorsSummary') : '') ||
+                            (validationErrors.find(e => e.path.includes('repPassword')) ? __('errors.errorsSummary') : '')
+                        %></p>
+
+                    <input class="form-button-submit" type="submit" value="<%= __('account.confirm') %>"/>
+                    <a class="form-button-cancel" href="/login"><%= __('account.cancel') %></a>
+                </div>
+            <% } %>
+        </form>
+
+            &nbsp;
+            <% if (message != null) { %>
+        <div class="errors-text">
+            <%= message %>
+        </div>
+        <% } %>
+
+        <% if(loggedUser.role == 'admin' && formMode != 'edit' && formMode != 'addAdmin' && formMode != 'changePassword') { %>
+            <h2><%= __('account.users') %></h2>
+            <hr><p></p>
+            <p>
+            <table class="table-list">
+                <thead>
+                <tr>
+                    <th><%= __('account.usrName') %></th>
+                    <th><%= __('account.role') %></th>
+                    <th class="responsiveness_correction"><%= __('account.id_usr') %></th>
+                    <th><%= __('list-actions.title') %></th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <% for (let u of users) { %>
+                    <tr>
+                        <td><%= u.name %></td>
+                        <td><%= u.role %></td>
+                        <td class="responsiveness_correction"><%= u.role_id %></td>
+                        <td>
+                            <ul class="list-actions">
+                                <% if(u.role === 'producer'){ %>
+                                    <li><a href="/producer/details/<%= u.role_id %>"
+                                           class="list-actions-button-details"><%= __('list-actions.details') %></a>
+                                    </li>
+                                    <li><a href="/producer/edit/<%= u.role_id %>"
+                                           class="list-actions-button-edit"><%= __('list-actions.edit') %></a></li>
+                                <% } else if(u.role === 'wholesaler'){ %>
+                                    <li><a href="/wholesaler/details/<%= u.role_id %>"
+                                           class="list-actions-button-details"><%= __('list-actions.details') %></a>
+                                    </li>
+                                    <li><a href="/wholesaler/edit/<%= u.role_id %>"
+                                           class="list-actions-button-edit"><%= __('list-actions.edit') %></a></li>
+                                <% }if(u._id != loggedUser._id){ %>
+                                    <li><a href="/login/delete/<%= u._id %>"
+                                           class="list-actions-button-delete"><%= __('list-actions.delete') %></a></li>
+                                <% } %>
+                            </ul>
+                        </td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+            </p>
+            <p>
+                <% if(loggedUser.role === 'admin' && formMode != 'addAdmin'){ %>
+                <a href="/login/add/" class="button-add"><%= __('account.add_admin') %></a></a>
+            </p>
+
+            <% } %>
+        <% } %>
+
+    <% } %>
+
+</main>
+<%- include('fragments/footer.ejs') %>
+
+<!--<script>-->
+<!--    let message = document.querySelector('.errors-text')-->
+<!--    if(message !== null){-->
+<!--         {-->
+<!--            setTimeout(() => {-->
+<!--                message.style.display = 'none';-->
+<!--            }, 2000);-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->

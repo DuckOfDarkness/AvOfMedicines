@@ -1,0 +1,63 @@
+<%- include('../../fragments/header.ejs')%>
+<main>
+  <h2><%= __('wholesaler.list.title')%><hr></h2>
+  <%if(wholesaler.length != 0){%>
+  <table class="table-list">
+    <thead>
+    <tr>
+      <th><%= __('wholesaler.list.name')%></th>
+      <th><%= __('wholesaler.list.nip')%></th>
+      <th><%= __('list-actions.title')%></th>
+    </tr>
+    </thead>
+
+
+<tbody>
+
+<%for (let w of wholesaler) {%>
+  <tr>
+    <td><%= w.name%></td>
+    <td><%= w.nip%></td>
+    <td>
+      <ul class="list-actions">
+        <li><a href="/wholesaler/details/<%=w._id%>" class="list-actions-button-details"><%= __('list-actions.details') %></a></li>
+        <%if(loggedUser.role == 'admin' || (loggedUser.role == 'wholesaler' && loggedUser.role_id == w._id)){%>
+        <li><a href="/wholesaler/edit/<%=w._id%>" class="list-actions-button-edit"><%= __('list-actions.edit') %></a></li>
+        <%}%>
+        <%if(loggedUser.role == 'admin'){%>
+        <li><a href="/wholesaler/delete/<%=w._id%>" class="list-actions-button-delete"><%= __('list-actions.delete') %></a></li>
+        <%}%>
+      </ul>
+    </td>
+  </tr>
+<% } %>
+
+
+</tbody>
+  </table>
+  <% } else{%>
+    <%= __('wholesaler.list.noData') %>
+  <p> &nbsp;</p>
+  <% } %>
+
+  <% if (message != null) { %>
+  <div class="errors-text">
+    <%=message%>
+  </div>
+  <% } %>
+  <%if(loggedUser.role == 'admin'){%>
+  <p><a href="/wholesaler/add/" class="button-add"><%= __('wholesaler.list.add')%></a></p>
+  <%}%>
+</main>
+<%- include('../../fragments/footer.ejs')%>
+
+<script>
+  let message = document.querySelector('.errors-text')
+  if(message !== null){
+    if(message.style.display = 'block') {
+      setTimeout(() => {
+        message.style.display = 'none';
+      }, 2000);
+    }
+  }
+</script>

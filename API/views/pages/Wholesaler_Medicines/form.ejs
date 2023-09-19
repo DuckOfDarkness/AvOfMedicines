@@ -1,0 +1,78 @@
+<%- include('../../fragments/header.ejs') %>
+<main>
+    <script type="application/javascript" src="../../js/validationMedicinesForm.js"></script>
+    <title><%= pageTitle %></title>
+    <h2><%= pageTitle %></h2>
+
+    <form class="form" method="post" action="<%= formAction %>" novalidate onsubmit="return validateForm();">
+        <input type="hidden" name="_id" value="<%= whole_med._id %>">
+
+        <label for="medicines"><%= __('whole-med.list.name') %>: <span class="symbol-required">*</span></label>
+        <select name="medicines_id" id="medicines" class="<%= validationErrors.find(e=>e.path.includes('medicines')) ? 'error-input' : '' %>" <%= (formMode == 'showDetails') ? 'disabled' : '' %> required>
+            <option value="0">-- <%= __('various.conditions.choose_from_list') %> --</option>
+            <% for(let i = 0 ; i < allMedicines.length; i++){let medicines = allMedicines[i];%>
+            <option value="<%=medicines._id%>" label="<%=medicines.name%>"
+                    <%=(whole_med.medicines_id == medicines._id.toString()) ? 'selected' : ''%>>></option>
+            <%}%>
+        </select>
+        <span id="errorMedicines" class="errors-text">
+            <%if (validationErrors.find(e => e.path.includes('medicines'))) {%>
+            <%=validationErrors.find(e => e.path.includes('medicines')).message%>
+            <%}%>
+        </span>
+
+        <label for="wholesaler"><%= __('whole-med.list.wholesaler') %>: <span class="symbol-required">*</span></label>
+        <select name="wholesaler_id" id="wholesaler" class="<%= validationErrors.find(e=>e.path.includes('wholesaler')) ? 'error-input' : '' %>" <%= ((formMode == 'showDetails') || (loggedUser.role != 'admin')) ? 'disabled' : '' %> required>
+            <option value="0">-- <%= __('various.conditions.choose_from_list') %> --</option>
+            <% for(let i = 0 ; i < allWholesaler.length; i++){let wholesaler = allWholesaler[i];%>
+            <option value="<%=wholesaler._id%>" label="<%=wholesaler.name%>"
+                    <%=((whole_med.wholesaler_id == wholesaler._id.toString()) || ((formMode == 'createNew') && (loggedUser.role_id == wholesaler._id.toString()) && (loggedUser.role == 'wholesaler'))) ? 'selected' : '' %>>></option>
+            <%}%>
+        </select>
+        <span id="errorWholesaler" class="errors-text">
+            <%if (validationErrors.find(e => e.path.includes('wholesaler'))) {%>
+            <%=validationErrors.find(e => e.path.includes('wholesaler')).message%>
+            <%}%>
+        </span>
+
+        <label for="amount"><%= __('whole-med.list.amount') %>: <span class="symbol-required">*</span></label>
+        <input type="text" name="amount" id="amount" placeholder="1 - 9999" value="<%= whole_med.amount %>" class="<%= validationErrors.find(e=>e.path.includes('amount')) ? 'error-input' : '' %>" <%= (formMode == 'showDetails') ? 'disabled' : '' %> required/>
+        <span id="errorAmount" class="errors-text">
+            <%if (validationErrors.find(e => e.path.includes('amount'))) {%>
+            <%=validationErrors.find(e => e.path.includes('amount')).message%>
+            <%}%>
+        </span>
+
+        <label for="dateOfPurchase"><%= __('whole-med.list.date_of_purchase') %>: <span class="symbol-required">*</span></label>
+        <input type="date" name="date_of_purchase" id="dateOfPurchase" value="<%= fmt.formatDate(whole_med.date_of_purchase) %>" class="<%= validationErrors.find(e=>e.path.includes('date_of_purchase')) ? 'error-input' : '' %>" <%= (formMode == 'showDetails') ? 'disabled' : '' %> required/>
+        <span id="errorDateOfPurchase" class="errors-text">
+            <%if (validationErrors.find(e => e.path.includes('date_of_purchase'))) {%>
+            <%=validationErrors.find(e => e.path.includes('date_of_purchase')).message%>
+            <%}%>
+        </span>
+
+        <% if ((formMode == 'showDetails') && (loggedUser.role == 'admin') || ((formMode == 'showDetails') && ((loggedUser.role == 'wholesaler') && (loggedUser.role_id == whole_med.wholesaler_id)))) { %>
+            <div class="form-buttons">
+                <a href="/wholesaler_medicines/edit/<%= whole_med._id %>" class="list-actions-button-details-edit"><%= __('various.details.edit') %></a>
+            </div>
+        <% } %>
+        <div class="form-buttons">
+            <p id="errorsSummary" class="errors-text">
+                <%=
+                (validationErrors.find(e=>e.path.includes('medicines')) ? __('errors.errorsSummary') : '') ||
+                (validationErrors.find(e=>e.path.includes('wholesaler')) ? __('errors.errorsSummary') : '') ||
+                (validationErrors.find(e=>e.path.includes('amount')) ? __('errors.errorsSummary') : '') ||
+                (validationErrors.find(e=>e.path.includes('date_of_purchase')) ? __('errors.errorsSummary') : '')
+                %>
+            </p>
+            <% if (formMode != 'showDetails') { %>
+                <input class="form-button-submit" type="submit" formaction="" value="<%= btnLabel %>"/>
+                <a class="form-button-cancel" href="/wholesaler_medicines"><%= __('various.edit.cancel') %></a>
+            <% } else { %>
+                <a class="form-button-cancel" href="/wholesaler_medicines"><%= __('various.details.return') %></a>
+            <% } %>
+        </div>
+
+    </form>
+</main>
+<%- include('../../fragments/footer.ejs') %>

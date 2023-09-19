@@ -1,0 +1,224 @@
+{
+	"main": {
+		"name": "MEDICINES SEARCH",
+		"title": "Medicines search",
+		"description": "Search engine for drugs available in pharmaceutical wholesalers."
+	},
+	"top_menu": {
+		"main-page": "Main Page",
+		"wholesalers": "Wholesalers",
+		"medicines": "Drugs",
+		"whole-med": "Availability of drugs",
+		"producers": "Producers",
+		"login": "Log in",
+		"user_account": "User account"
+	},
+	"list-actions": {
+		"title": "Actions",
+		"details": "Details",
+		"edit": "Edit",
+		"delete": "Delete"
+	},
+	"wholesaler": {
+		"list": {
+			"title": "Wholesalers",
+			"name": "Wholesaler name",
+			"nip": "NIP number",
+			"add": "Add a new wholesaler",
+			"noData": "There is no information in the database about available wholesalers."
+		},
+		"form": {
+			"details": {
+				"title": "Wholesale details",
+				"secondTitle": "Drug availability details",
+				"drugName": "Drug name",
+				"amount": "Amount available",
+				"date_of_purchase": "Date of purchase",
+				"addTitle": "New wholesaler",
+				"btnLabel": "Add",
+				"deleteTitle": "Deleting a wholesaler'"
+			},
+			"edit": {
+				"title": "Wholesaler edition"
+			}
+		}
+	},
+	"medicines": {
+		"list": {
+			"title": "Drugs",
+			"name": "Name",
+			"parallel_import": "Parallel import",
+			"expiration_date": "Expiration date",
+			"producer": "Producer",
+			"add": "Add a new drug",
+			"noData": "There is no information in the database about available medicine."
+		},
+		"form": {
+			"details": {
+				"title": "Drug details",
+				"secondTitle": "Details of drug availability in wholesalers",
+				"wholesalerName": "Wholesaler name",
+				"amount": "Amount",
+				"date_of_purchase": "Date of Purchase",
+				"addTitle": "New drug",
+				"btnLabel": "Add"
+			},
+			"edit": {
+				"title": "Drug edition"
+			}
+		}
+	},
+	"whole-med": {
+		"list": {
+			"title": "Availability of drugs",
+			"name": "Drug name",
+			"wholesaler": "Wholesaler",
+			"amount": "Amount",
+			"date_of_purchase": "Date of purchase",
+			"add": "Add new availability",
+			"addTitle": "New drug availability",
+			"btnLabel": "Add",
+			"noData": "There is no information in the database on the availability of drugs in wholesalers"
+		},
+		"form": {
+			"details": {
+				"title": "Drug availability details"
+			},
+			"edit": {
+				"title": "Editing drug availability"
+			}
+		}
+	},
+	"producer": {
+		"list": {
+			"title": "Producers",
+			"name": "Name",
+			"country": "Country of origin",
+			"add": "Add a new producer",
+			"addTitle": "New producer",
+			"btnLabel": "Add",
+			"noData": "There is no information in the database about available producers."
+		},
+		"form": {
+			"details": {
+				"title": "Producer details",
+				"secondTitle": "Drug list",
+				"name": "Drug name"
+			},
+			"edit": {
+				"title": "Editing a producer"
+			}
+		}
+	},
+	"account": {
+		"title": "Login",
+		"usrName": "User Name",
+		"oldPasswd": "Old password",
+		"newPasswd": "New password",
+		"repPasswd": "Repeat password",
+		"confirm": "Confirm",
+		"cancel": "Cancel",
+		"password": "Password",
+		"logIn": "Log in",
+		"logAs": "You are logged in as",
+		"producer": "producer",
+		"wholesaler": "wholesaler",
+		"edit": "Change data",
+		"edit_title": "Username change",
+		"change_password": "Edit password",
+		"change_password_title": "Password change",
+		"wrong_password": "The old password is incorrect",
+		"same_password": "The entered password is identical to the old password",
+		"logout": "Log out",
+		"users": "Users",
+		"role": "Role",
+		"id_usr": "The ID of the user within his role",
+		"lanConfirm": "Change language",
+		"choose": "Choose from the list",
+		"lang": "Choose language",
+		"logout_message": "You have successfully logged out",
+		"user_update_message": "User data has been changed correctly. Please log in again using your new login or password.",
+		"add_admin": "Add a new admin",
+		"add_admin_title": "Adding a new administrator",
+		"add_admin_successful": "Adding the administrator was successful"
+	},
+	"various": {
+		"details": {
+			"edit": "Edit",
+			"return": "Return"
+		},
+		"edit": {
+			"confirm": "Save changes",
+			"cancel": "Cancel",
+			"confirm_information": "The edit was done correctly"
+		},
+		"delete": {
+			"wholesaler_delete": "Deleting the wholesaler was successful",
+			"medicine_delete": "Deleting the medicines was successful",
+			"whole_med_delete": "Deleting the availability was successful",
+			"producer_delete": "Deleting the producer was successful",
+			"user_delete": "Deleting user was successful"
+		},
+		"update": {
+			"wholesaler_update": "The wholesaler edition was successful",
+			"medicines_update": "The medicines edition was successful",
+			"whole_med_update": "The availability edition was successful",
+			"producer_update": "The producer edition was successful",
+			"user_update": "The user edition was successful"
+		},
+		"add": {
+			"wholesaler_add": "Adding the wholesaler was successful",
+			"medicines_add": "Adding the medicines was successful",
+			"whole_med_add": "Adding the avalaibility was successful",
+			"producer_add": "Adding the producer was successful",
+			"user_add": "Adding the user was successful"
+		},
+		"conditions": {
+			"characters": "characters",
+			"empty_or": "Empty or",
+			"choose_from_list": "Choose from the list",
+			"date_format": "day/month/year",
+			"digit": "digits"
+		}
+	},
+	"errors": {
+		"loginFailed": "Invalid username or password",
+		"req_field": "Required field",
+		"expiration_date_invalid_format": "Incorrect date format entered. The date should be in the format dd.MM.yyyy (e.g. 02.11.2023)",
+		"errorsSummary": "The form contains errors",
+		"name": {
+			"capital_letter": "The name must start with a capital letter",
+			"2-90": "The name must contain between 2 and 90 characters",
+			"2-70": "The name must contain between 2 and 70 characters",
+			"only_numbers": "The name cannot contain numbers only"
+		},
+		"medicines": {
+			"parallel_importer_2-100": "The parallel importer can be empty or contain between 2 and 100 characters",
+			"parallel_importer_capital_letter": "The parallel importer must start with a capital letter",
+			"expiration_date_not_after_then_today": "The expiration date cannot be earlier than the current one"
+		},
+		"producer": {
+			"country_2-90": "The country must be between 2 and 90 characters",
+			"country_invalid": "Country must start with a capital letter and cannot contain numbers or other characters (e.g. Poland, UK)"
+		},
+		"wholesaler": {
+			"nip_length": "NIP must contain 10 digits",
+			"nip_format": "NIP can only contain numbers"
+		},
+		"whole_med": {
+			"<1": "The value cannot be lower than 1",
+			">9999": "The value cannot be higher than 9999",
+			"date_of_purchase": "Purchase date cannot be later than the current date"
+		},
+		"password": {
+			"length": "The password must be between 8 and 20 characters long",
+			"invalid_old_passwd": "The old password is incorrect"
+		}
+	},
+	"other": {
+		"medicine_delete": "other.medicine_delete"
+	},
+	"validationMessage": {
+		"fieldRequired": "validationMessage.fieldRequired"
+	}
+}

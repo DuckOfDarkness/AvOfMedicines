@@ -1,0 +1,63 @@
+<%- include('../../fragments/header.ejs')%>
+<main>
+    <h2><%=__('producer.list.title')%><hr></h2>
+    <%if(producer.length != 0){%>
+
+    <table class="table-list">
+        <thead>
+        <tr>
+
+
+            <th><%=__('producer.list.name')%></th>
+            <th><%=__('producer.list.country')%></th>
+            <th><%=__('list-actions.title')%></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <%for (let pro of producer) { %>
+            <tr>
+                <td><%= pro.name %></td>
+                <td><%= pro.country %></td>
+                <td>
+                    <ul class="list-actions">
+                        <li><a href="/producer/details/<%=pro._id%>" class="list-actions-button-details"><%= __('list-actions.details') %></a></li>
+                        <%if(loggedUser.role == 'admin' || (loggedUser.role == 'producer' && loggedUser.role_id == pro._id)){%>
+                        <li><a href="/producer/edit/<%=pro._id%>" class="list-actions-button-edit"><%= __('list-actions.edit') %></a></li>
+                        <% } %>
+                        <%if(loggedUser.role == 'admin'){%>
+                        <li><a href="/producer/delete/<%=pro._id%>" class="list-actions-button-delete"><%= __('list-actions.delete') %></a></li>
+                        <% } %>
+                    </ul>
+                </td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+    <% } else{%>
+        <%= __('producer.list.noData') %>
+        <p> &nbsp;</p>
+    <% } %>
+    <% if (message != null) { %>
+    <div class="errors-text">
+        <%=message%>
+    </div>
+    <% } %>
+
+    <%if(loggedUser.role == 'admin'){%>
+    <p><a href="/producer/add/" class="button-add"><%=__('producer.list.add')%></a></p>
+    <% } %>
+
+</main>
+<%- include('../../fragments/footer.ejs')%>
+
+<script>
+    let message = document.querySelector('.errors-text')
+    if(message !== null){
+        if(message.style.display = 'block') {
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 2000);
+        }
+    }
+</script>

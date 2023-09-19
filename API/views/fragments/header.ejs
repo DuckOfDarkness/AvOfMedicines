@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1">
+    <title><%=__('main.title')%></title>
+</head>
+<body>
+
+<span class="language"><a href="/changeLang/pl" class="<%= lang == 'pl' ? '' : 'language-unactive'%>"><img src="/images/pl.jpg" width="37.5" height="25"></a>  <a href="/changeLang/en" class="<%= lang == 'en' ? '' : 'language-unactive'%>"><img src="/images/en.jpg" width="37.5" height="25"></a></span>
+<header>
+    <h1><%=__('main.name')%></h1>
+    <img src="/images/logo.jpg" alt="Drug Availability Search" width="224" height="348">
+
+</header>
+
+<nav>
+    <ul>
+        <li><a href="/" class="<%= navLocation == 'main' ? 'active' : '' %>"><%=__('top_menu.main-page')%></a></li>
+        <%if(loggedUser) { %>
+        <li><a href="/wholesaler" class="<%= navLocation == 'whole' ? 'active' : '' %>"><%=__('top_menu.wholesalers')%></a></li>
+        <li><a href="/medicines" class="<%= navLocation == 'med' ? 'active' : '' %>"><%=__('top_menu.medicines')%></a></li>
+        <% } %>
+        <li><a href="/wholesaler_medicines" class="<%= navLocation == 'whole_med' ? 'active' : '' %>"><%=__('top_menu.whole-med')%></a></li>
+        <%if(loggedUser) { %>
+        <li><a href="/producer" class="<%= navLocation == 'prod' ? 'active' : '' %>"><%=__('top_menu.producers')%></a></li>
+        <% } %>
+        <li><%if(loggedUser) {%><a href="/login" class="<%=  navLocation == 'log' ? 'active' : '' %>"><%=__('top_menu.user_account')%><% } %></a></li>
+
+    <%if(!loggedUser) { %>
+        <li><a href="/login" class="<%=  navLocation == 'log' ? 'active' : '' %>"><%=__('top_menu.login')%></a></li>
+        <% } %>
+        <li></li>
+    </ul>
+</nav>

@@ -1,0 +1,72 @@
+<%- include('../../fragments/header.ejs')%>
+<main>
+  <h2><%= __('whole-med.list.title') %><hr></h2>
+  <%if(whole_med.length != 0){%>
+  <table class="table-list">
+    <thead>
+    <tr>
+      <th><%= __('whole-med.list.name') %></th>
+      <th><%= __('whole-med.list.wholesaler') %></th>
+      <th><%= __('whole-med.list.amount') %></th>
+      <th class="responsiveness_correction"><%= __('whole-med.list.date_of_purchase') %></th>
+      <%if(loggedUser) { %>
+      <th><%= __('list-actions.title') %></th>
+      <% } %>
+
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <%for (let w_m of whole_med) { %>
+      <tr>
+        <td><%= w_m.medicines.name %></td>
+        <td><%= w_m.wholesaler.name %></td>
+        <td><%= w_m.amount%></td>
+        <td class="responsiveness_correction"><%= w_m.date_of_purchase.toISOString().split('T')[0] %></td>
+        <%if(loggedUser) { %>
+        <td>
+          <ul class="list-actions">
+
+            <li><a href="/wholesaler_medicines/details/<%=w_m._id%>" class="list-actions-button-details"><%= __('list-actions.details') %></a></li>
+            <%if(loggedUser.role == 'admin' || (loggedUser.role == 'wholesaler' && loggedUser.role_id == w_m.wholesaler_id)){%>
+            <li><a href="/wholesaler_medicines/edit/<%=w_m._id%>" class="list-actions-button-edit"><%= __('list-actions.edit') %></a></li>
+            <li><a href="/wholesaler_medicines/delete/<%=w_m._id%>" class="list-actions-button-delete"><%= __('list-actions.delete') %></a></li>
+            <% } %>
+            <% } %>
+          </ul>
+        </td>
+      </tr>
+    <% } %>
+    </tbody>
+  </table>
+  <% } else{%>
+    <%= __('whole-med.list.noData') %>
+    <p> &nbsp;</p>
+  <% } %>
+  <% if (message != null) { %>
+  <div class="errors-text">
+    <%=message%>
+  </div>
+  <% } %>
+
+
+  <%if(loggedUser) {
+    if(loggedUser.role == 'admin' || loggedUser.role == 'wholesaler'){%>
+    <p><a href="/wholesaler_medicines/add/" class="button-add"><%= __('whole-med.list.add') %></a></p>
+  <% }
+  } %>
+
+</main>
+<%- include('../../fragments/footer.ejs')%>
+
+<script>
+  let message = document.querySelector('.errors-text')
+  if(message !== null){
+    if(message.style.display = 'block') {
+      setTimeout(() => {
+        message.style.display = 'none';
+      }, 2000);
+    }
+  }
+</script>

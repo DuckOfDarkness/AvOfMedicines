@@ -1,0 +1,71 @@
+<%- include('../../fragments/header.ejs') %>
+<main>
+    <h2><%= __('medicines.list.title') %>
+        <hr>
+    </h2>
+    <%if(medicines.length != 0){%>
+    <table class="table-list">
+        <thead>
+        <tr>
+            <th><%= __('medicines.list.name') %></th>
+            <th class="responsiveness_correction"><%= __('medicines.list.parallel_import') %></th>
+            <th><%= __('medicines.list.expiration_date') %></th>
+            <th class="responsiveness_correction"><%= __('medicines.list.producer') %></th>
+            <th><%= __('list-actions.title') %></th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <% for (let med of medicines) { %>
+            <tr>
+                <td><%= med.name %></td>
+                <td class="responsiveness_correction"><%= med.parallel_importer %></td>
+                <td><%= fmt.formatDate(med.expiration_date) %></td>
+                <td class="responsiveness_correction">
+                    <% for(prod of allProducer){ %>
+                        <% if(prod._id === med.producer_id){ %>
+                            <%= prod.name %>
+                        <% } %>
+                    <% } %>
+                </td>
+                <td>
+                    <ul class="list-actions">
+                        <li><a href="/medicines/details/<%= med._id %>" class="list-actions-button-details"><%= __('list-actions.details') %></a></li>
+                        <%if(loggedUser.role == 'admin' || (loggedUser.role == 'producer' && loggedUser.role_id == med.producer_id)){%>
+                        <li><a href="/medicines/edit/<%= med._id %>" class="list-actions-button-edit"><%= __('list-actions.edit') %></a></li>
+                        <li><a href="/medicines/delete/<%= med._id %>" class="list-actions-button-delete"><%= __('list-actions.delete') %></a></li>
+                        <% } %>
+                    </ul>
+                </td>
+            </tr>
+        <% }
+        %>
+
+        </tbody>
+    </table>
+    <% } else{%>
+        <%= __('medicines.list.noData') %>
+        <p> &nbsp;</p>
+    <% } %>
+    <% if (message != null) { %>
+        <div class="errors-text">
+            <%=message%>
+        </div>
+    <% } %>
+    <%if(loggedUser.role == 'admin' || loggedUser.role == 'producer'){%>
+    <p><a href="/medicines/add/" class="button-add"><%= __('medicines.list.add') %></a></p>
+    <% } %>
+</main>
+<%- include('../../fragments/footer.ejs') %>
+
+<script>
+    let message = document.querySelector('.errors-text')
+    if(message !== null){
+        if(message.style.display = 'block') {
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 2000);
+        }
+    }
+</script>
