@@ -1,3 +1,5 @@
+> **Note:** This is an early academic prototype (Node.js / Sequelize / MySQL2) built as a precursor to my engineering thesis. The full **Java 21 & Spring Boot** production version is available here: [AvalOM](https://github.com/DuckOfDarkness/AvalOM).
+> 
 # AvOfMedicines
 REST API project for drug availability in wholesalers.
 
